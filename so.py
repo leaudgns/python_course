@@ -2,13 +2,30 @@ import requests
 from bs4 import BeautifulSoup
 
 
-URL=f"https://stackoverflow.com/jobs?pg=1"
+URL = f"https://stackoverflow.com/jobs?pg=1"
+
 
 def get_last_page():
     result = requests.get(URL)
     soup = BeautifulSoup(result.text, "html.parser")
-    pages = soup.find("div",{"class":"pagination"}).find_all("a")
+    pages = soup.find("div", {"class": "s-pagination"}).find_all("a")
+    last_pages = pages[-2].get_text().strip()
+    # last_pages = pages[-2].get_text(strip=True)
+    # last_pages = pages[-2].string
+    return int(last_page)
+
+
+def extract_jobs(last_page):
+    jobs = []
+    for page in range(last_page):
+        result = requests.get(f"{URL}&pg={page+1}")
+        soup = BeautifulSoup(result.text, "html.parser")
+        results = soup.find_all("div", {"class": "-job"})
+        for result in results:
+            print(result["data-jobid"])
+
 
 def get_jobs():
     last_page = get_last_page()
+    jobs = extract_jobs(last_page)
     return []
