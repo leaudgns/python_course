@@ -18,9 +18,12 @@ def get_last_page():
 def extract_job(html):
     title = html.find("a", {"class": "s-link"})["title"]
     company, location = html.find(
-        "h3", {"class": "fs-body1"}).find_all("span", recursive=False)
-    print(company.get_text(strip=True), location.get_text(strip=True))
-    return {'title': title}
+        "h3", {"class": "mb4"}).find_all("span", recursive=False)
+    #company = company.get_text(strip=True)
+    company = ' '.join(company.get_text().strip())
+    location = location.get_text(strip=True).strip(
+        "-").strip(" \r").strip("\n")
+    return {'title': title, 'company': company, 'location': location}
 
 
 def extract_jobs(last_page):
