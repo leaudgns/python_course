@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-URL = f"https://stackoverflow.com/jobs?pg=1"
+URL = "https://stackoverflow.com/jobs?pg"
 
 
 def get_last_page():
@@ -15,14 +15,24 @@ def get_last_page():
     return int(last_page)
 
 
+def extract_job(html):
+    title = html.find("a", {"class": "s-link"})["title"]
+    company, location = html.find(
+        "h3", {"class": "fs-body1"}).find_all("span", recursive=False)
+    print(company.get_text(strip=True), location.get_text(strip=True))
+    return {'title': title}
+
+
 def extract_jobs(last_page):
     jobs = []
     for page in range(last_page):
-        result = requests.get(f"{URL}&pg={page+1}")
+        result = requests.get(f"{URL}={page+1}")
         soup = BeautifulSoup(result.text, "html.parser")
         results = soup.find_all("div", {"class": "-job"})
         for result in results:
-            print(result["data-jobid"])
+            job = extract_job(result)
+            jobs.append(job)
+    return jobs
 
 
 def get_jobs():
