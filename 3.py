@@ -20,13 +20,22 @@ class Car():
     doors = 4
     windows = 6
     seats = 4
+    # method는 class 안에 있는 function
+
+    def start(self):
+        print(self.doors)
+        print("I started")
 
 
 porche = Car()
-porche.color = "Red"
-# print(porche.windows)
-print(porche.color)
+porche.color = "R Red"
+porche.start()  # porche.start() = porche.start(porche)
 
-ferrari = Car()
-ferrari.color = "Yellow"
-print(ferrari.color)
+# porche = Car()
+# porche.color = "Red"
+# print(porche.windows)
+# print(porche.color)
+
+# ferrari = Car()
+# ferrari.color = "Yellow"
+# print(ferrari.color)
