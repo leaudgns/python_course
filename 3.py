@@ -31,11 +31,31 @@ class Car():
         return f"Car with {self.wheels} wheels"
 
 
-# print(dir(Car))
-porche = Car(color="green", price="$40")
-print(porche.color, porche.price)  # print(porche) = print(porche.__str__)
+class Convertible(Car):
 
-mini = Car()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.time = kwargs.get("time", 10)
+
+    def take_off(self):
+        return "taking off"
+
+    def __str__(self):
+        return "Car with no roof"
+
+
+class Something(Convertible):
+    pass
+
+
+# print(dir(Car))
+porche = Convertible(color="green", price="$40")
+print(porche.color, porche.price)  # print(porche) = print(porche.__str__)
+print(porche.take_off())
+porche.wheels
+print(porche.color)
+
+mini = Convertible()
 print(mini.color, mini.price)
 
 
