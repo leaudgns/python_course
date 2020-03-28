@@ -12,5 +12,21 @@ def plus(*args):
         result += number
     print(result)
 
+#plus(1, 2, 4, 6, 78, 3, 6, 67, 87, 3, 7, 8)
 
-plus(1, 2, 4, 6, 78, 3, 6, 67, 87, 3, 7, 8)
+
+class Car():
+    wheels = 4
+    doors = 4
+    windows = 6
+    seats = 4
+
+
+porche = Car()
+porche.color = "Red"
+# print(porche.windows)
+print(porche.color)
+
+ferrari = Car()
+ferrari.color = "Yellow"
+print(ferrari.color)
